@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <title>Paper Scissors!</title>
+    <script> 
+    computerChose = ""; // the computer's choice
+    playerChose = window.prompt("Rock, paper or scissors?"); // Player's choice
+    result = "" //results of the round
+
+    function computerPlay(){
+        computerInt = Math.floor(Math.random()*3)+1 //returns a number from 1 to 3
+        switch (computerInt) {
+            case 1:
+                computerChose = "Rock"; // 1=rock
+                break;
+            case 2:
+                computerChose = "Paper";
+                break;
+            case 3:
+                computerChose = "Scissors";
+                break;
+        }
+    }  
+
+    function singleRound(playerSelection, computerSelection){
+        playerSelection = playerSelection.toLowerCase();  //turn user input to lower case to ignore capitalization
+        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1); //capitalize the first letter
+        if (playerSelection==computerSelection){
+            result = `No one wins, both of you chose ${computerSelection}!` ;
+            }
+        else if (playerSelection=="Rock"){
+            if (computerSelection=="Paper"){
+                result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                return result;
+            }
+            else{
+                result = `${playerSelection} beats ${computerSelection}, you win!`;
+                return result;
+            }
+        }    
+        else if (playerSelection=="Paper"){
+            if (computerSelection=="Scissors"){
+                result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                return result;
+            }
+            else{
+                result = `${playerSelection} beats ${computerSelection}, you win!`;
+                return result;
+            }
+        }
+        else if (playerSelection=="Scissors"){
+            if (computerSelection=="Rock"){
+                result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                return result;
+            }
+            else{
+                result = `${playerSelection} beats ${computerSelection}, you win!`;
+                return result;
+            }
+        }
+    }
+    computerPlay();
+    singleRound(playerChose,computerChose);
+    console.log(`The computer chose ${computerChose}`);
+    console.log(`You chose ${playerChose}`);
+    console.log(result);
+    </script>
+</head>
+
