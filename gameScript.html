@@ -2,10 +2,18 @@
 <head>
     <title>Paper Scissors!</title>
     <script> 
-    computerChose = ""; // the computer's choice
-    playerChose = window.prompt("Rock, paper or scissors?"); // Player's choice
-    result = "" //results of the round
 
+    //GLOBAL VARIABLES
+
+    computerChose = ""; // the computer's choice
+    playerChose = ""; // Player's choice, the user will input their choice in the games() function
+    result = "" //results of the round
+    numCompWins = 0;
+    numUserWins = 0;
+    numDraws = 0;
+
+
+    //the below function generates a random number that maps to rock paper or scissors
     function computerPlay(){
         computerInt = Math.floor(Math.random()*3)+1 //returns a number from 1 to 3
         switch (computerInt) {
@@ -21,48 +29,68 @@
         }
     }  
 
+    //the below function plays a single game of rock, paper scissors
     function singleRound(playerSelection, computerSelection){
         playerSelection = playerSelection.toLowerCase();  //turn user input to lower case to ignore capitalization
         playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1); //capitalize the first letter
-        if (playerSelection==computerSelection){
+        if (playerSelection==computerSelection){   //check if the user chose the same input as the computer
             result = `No one wins, both of you chose ${computerSelection}!` ;
+            numDraws += 1;
+            return result;
             }
-        else if (playerSelection=="Rock"){
+        else if (playerSelection=="Rock"){    //the remaining possible outcomes if the user and computer chose differently
             if (computerSelection=="Paper"){
                 result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                numCompWins += 1;
                 return result;
             }
             else{
                 result = `${playerSelection} beats ${computerSelection}, you win!`;
+                numUserWins += 1;
                 return result;
             }
         }    
         else if (playerSelection=="Paper"){
             if (computerSelection=="Scissors"){
                 result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                numCompWins += 1;
                 return result;
             }
             else{
                 result = `${playerSelection} beats ${computerSelection}, you win!`;
+                numUserWins += 1;
+
                 return result;
             }
         }
         else if (playerSelection=="Scissors"){
             if (computerSelection=="Rock"){
                 result = `${computerSelection} beats ${playerSelection}, you lose!`;
+                numCompWins += 1;
                 return result;
             }
             else{
                 result = `${playerSelection} beats ${computerSelection}, you win!`;
+                numUserWins += 1;
                 return result;
             }
         }
     }
-    computerPlay();
-    singleRound(playerChose,computerChose);
-    console.log(`The computer chose ${computerChose}`);
-    console.log(`You chose ${playerChose}`);
-    console.log(result);
+
+    function game(numGames){
+        for (let i = 0; i<numGames; i++){
+            playerChose = window.prompt("Rock, paper or scissors?"); // Player's choice
+            computerPlay(); //generate a choice for each game for the computer
+            singleRound(playerChose,computerChose);
+            console.log(`The computer chose ${computerChose}`);
+            console.log(`You chose ${playerChose}`);
+            console.log(result);
+        }
+        console.log(`You won ${numUserWins} times, the computer won ${numCompWins} times and you guys drew ${numDraws} times`);
+    }
+
+    game(2);
+    
     </script>
 </head>
 
