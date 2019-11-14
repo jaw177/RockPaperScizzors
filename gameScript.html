@@ -11,6 +11,7 @@
     numCompWins = 0;
     numUserWins = 0;
     numDraws = 0;
+    choices = ["rock","paper","scissors"];
 
 
     //the below function generates a random number that maps to rock paper or scissors
@@ -18,7 +19,7 @@
         computerInt = Math.floor(Math.random()*3)+1 //returns a number from 1 to 3
         switch (computerInt) {
             case 1:
-                computerChose = "Rock"; // 1=rock
+                computerChose = "Rock";
                 break;
             case 2:
                 computerChose = "Paper";
@@ -28,6 +29,16 @@
                 break;
         }
     }  
+
+    //check if the user input is a valid choice
+    function check(choiceArray){
+        if (choiceArray.includes(playerChose)){
+            return true;
+        }
+        else{
+            playerChose = window.prompt("Invalid choice, please enter rock, paper, or scissors");
+        }
+    }
 
     //the below function plays a single game of rock, paper scissors
     function singleRound(playerSelection, computerSelection){
@@ -80,6 +91,9 @@
     function game(numGames){
         for (let i = 0; i<numGames; i++){
             playerChose = window.prompt("Rock, paper or scissors?"); // Player's choice
+            while (check(choices)!=true){
+                check(choices);
+            }
             computerPlay(); //generate a choice for each game for the computer
             singleRound(playerChose,computerChose);
             console.log(`The computer chose ${computerChose}`);
@@ -88,8 +102,7 @@
         }
         console.log(`You won ${numUserWins} times, the computer won ${numCompWins} times and you guys drew ${numDraws} times`);
     }
-
-    game(2);
+    game(5);
     
     </script>
 </head>
